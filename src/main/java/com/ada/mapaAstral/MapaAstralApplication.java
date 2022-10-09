@@ -19,13 +19,18 @@ public class MapaAstralApplication {
 
 
 		// Parallel
-
+		// lendo arquivo
 
 	 	Path pathArquivo = Paths.get(pathPasta,"integrantes.txt");
 
 		MapaQuanticoService mapaQuanticoService = new MapaQuanticoService();
 		List<String> listaIntegrantes = mapaQuanticoService.lerArquivo(pathArquivo);
 		listaIntegrantes.forEach(System.out::println);
+
+		// escrevendo arquivo
+
+		Path pathArquivoTest = Paths.get(pathPasta,"TextoTest.txt");
+		mapaQuanticoService.escreverArquivo(pathArquivoTest, "Testando o arquivo");
 
 
 		// Mapa Astral
