@@ -20,13 +20,12 @@ public class MapaQuanticoService  {
     public List<String> lerArquivo(Path path){
         List<String>integrantes;
         try {
-            integrantes = Files.lines(path).map(linha->linha ).collect(Collectors.toList());
+            integrantes = Files.lines(path).parallel().collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return integrantes;
     }
-
         public void escreverArquivo (Path path, String textoIntegrantes ){
         try {
             if(!Files.exists(path)){
@@ -37,8 +36,6 @@ public class MapaQuanticoService  {
             throw new RuntimeException(e);
         }
     }
-
-
     public void escreverMapaQuantico(List<String> listaIntegrantes) {
            listaIntegrantes.stream().parallel().forEach(integrante ->{
 
@@ -67,8 +64,6 @@ public class MapaQuanticoService  {
            });
 
         }
-
-
     
     }
 
