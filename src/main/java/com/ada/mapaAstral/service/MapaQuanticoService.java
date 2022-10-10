@@ -40,7 +40,12 @@ public class MapaQuanticoService  {
 
 
     public void escreverMapaQuantico(List<String> listaIntegrantes) {
-           listaIntegrantes.forEach(integrante ->{
+           listaIntegrantes.stream().parallel().forEach(integrante ->{
+
+               System.out.println("NOME THREAD" + Thread.currentThread().getName());
+               System.out.println(System.nanoTime());
+
+
                String[] integranteSplit = integrante.split(",");
 
                String nome = integranteSplit[0];
