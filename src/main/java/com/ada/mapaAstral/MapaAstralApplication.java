@@ -29,11 +29,7 @@ public class MapaAstralApplication {
 
 		// escrevendo arquivo
 
-		Path pathArquivoTest = Paths.get(pathPasta,"TextoTest.txt");
-		mapaQuanticoService.escreverArquivo(pathArquivoTest, "Testando o arquivo");
-		System.out.println(mapaQuanticoService.criarMapaQuantico2(listaIntegrantes));
-
-
+		mapaQuanticoService.escreverMapaQuantico(listaIntegrantes);
 
 		/* Mapa Astral
 

@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +20,7 @@ public class MapaQuanticoService  {
     public List<String> lerArquivo(Path path){
         List<String>integrantes;
         try {
-            integrantes = Files.lines(path).map(linha->linha + "\n").collect(Collectors.toList());
+            integrantes = Files.lines(path).map(linha->linha ).collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,44 +39,31 @@ public class MapaQuanticoService  {
     }
 
 
-    public void criarMapaQuantico(List<String> listaIntegrantes) {
-        listaIntegrantes.stream().map(integrante -> {
-            String[] integranteSplit = integrante.split(",");
+    public void escreverMapaQuantico(List<String> listaIntegrantes) {
+           listaIntegrantes.forEach(integrante ->{
+               String[] integranteSplit = integrante.split(",");
 
-            String nome = integranteSplit[0];
-            String local = integranteSplit[1];
-            String data = integranteSplit[2];
+               String nome = integranteSplit[0];
+               String local = integranteSplit[1];
+               String data = integranteSplit[2];
 
-            String mapa = mapaAstralService.mapaAstral(LocalDateTime.parse(data), local, nome);
+               //LocalDateTime localDateTime = LocalDateTime.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 
-            String HOME = System.getProperty("user.dir");
-            String pathPasta = HOME.concat("/src/main/resources/mapa");
+               LocalDateTime localDateTime = LocalDateTime.parse(integranteSplit[2]);
 
-            Path pathArquivo = Paths.get(pathPasta,nome + ".txt");
-            escreverArquivo(pathArquivo, mapa);
+               String mapa = mapaAstralService.mapaAstral(localDateTime,local,nome);
 
-            return mapa;
-        });
+               String HOME = System.getProperty("user.dir");
+               String pathPasta = HOME.concat("/src/main/resources/mapa");
 
-    }
+               Path pathArquivo = Paths.get(pathPasta,nome + ".txt");
+               escreverArquivo(pathArquivo, mapa);
 
-
-
-    public List<String> criarMapaQuantico2(List<String> listaIntegrantes) {
-        List<String> listaMapas = new ArrayList<>();
-        for (String integrante : listaIntegrantes) {
-            String[] integranteSplit = integrante.split(",");
-
-            String nome = integranteSplit[0];
-            String local = integranteSplit[1];
-            String data = integranteSplit[2];
-
-            LocalDateTime localDateTime = LocalDateTime.parse(data);
-            listaMapas.add(mapaAstralService.mapaAstral(localDateTime,local, nome));
-
+           });
 
         }
-    return listaMapas;
+
+
+    
     }
 
-}

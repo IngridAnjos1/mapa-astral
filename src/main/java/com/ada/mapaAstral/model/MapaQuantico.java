@@ -16,4 +16,14 @@ public class MapaQuantico {
     private LocalDateTime horaNascimento;
     private Integer idade;
 
+    @Override
+    public String toString() {
+        return "MapaQuantico\n" +
+                "Nome: " + nome +
+                "\nSigno :" + signo +
+                "\nAnscendente: " + ascendente +
+                "\nLocal Nascimento: " + localNascimento +
+                "\nHora Nascimento: " + horaNascimento +
+                "\nIdade: " + idade ;
+    }
 }
